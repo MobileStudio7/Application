@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,18 +10,14 @@
     <TextureView
         android:id="@+id/texture"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:id="@+id/line_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="683dp"
-        tools:ignore="MissingConstraints">
+        android:layout_alignBottom="@id/texture"
+        android:gravity="center_horizontal">
 
         <Button
             android:id="@+id/btn_takepicture"
@@ -46,10 +42,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="144dp">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_preview"
@@ -60,5 +53,12 @@
             tools:layout_editor_absoluteX="18dp" />
     </LinearLayout>
 
+    <SeekBar
+        android:id="@+id/zoom"
+        android:layout_width="408dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/line_btn"
+        android:max="10" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
