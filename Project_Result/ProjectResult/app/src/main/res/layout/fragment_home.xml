@@ -20,7 +20,7 @@
         android:id="@+id/pic"
         android:name="com.example.projectresult.ui.home.EatenListFragment"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="380dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nutirent"
@@ -30,8 +30,8 @@
         android:id="@+id/open_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/pic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pic"
         app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
         tools:ignore="VectorDrawableCompat" />
 </androidx.constraintlayout.widget.ConstraintLayout>

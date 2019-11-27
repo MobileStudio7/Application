@@ -6,10 +6,18 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.example.projectresult.ui.account.StatisticFragment"
+        tools:layout="@layout/fragment_statistic" />
+    <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.projectresult.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/to_camera"
+            app:destination="@id/cameraFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_schedule"
@@ -21,5 +29,51 @@
         android:id="@+id/navigation_account"
         android:name="com.example.projectresult.ui.account.AccountFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/to_nestedLogin"
+            app:destination="@id/navigation2" />
+        <action
+            android:id="@+id/to_statistic"
+            app:destination="@id/statisticFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.projectresult.ui.home.CameraFragment"
+        android:label="@string/title_cameara"
+        tools:layout="@layout/fragment_camera">
+        <action
+            android:id="@+id/to_camera"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/to_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <navigation
+        android:id="@+id/navigation2"
+        app:startDestination="@id/accountFragment2" >
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.projectresult.ui.account.LoginFragment"
+            android:label="@string/title_inputData"
+            tools:layout="@layout/fragment_login">
+            <action
+                android:id="@+id/to_LoginForm"
+                app:destination="@id/accountFragment2" />
+        </fragment>
+        <fragment
+            android:id="@+id/accountFragment2"
+            android:name="com.example.projectresult.ui.account.AccountFragment2"
+            android:label="@string/title_loginForm">
+            <action
+                android:id="@+id/to_addUser"
+                app:destination="@id/loginFragment" />
+        </fragment>
+        <action
+            android:id="@+id/to_navAccount"
+            app:destination="@id/navigation_account" />
+    </navigation>
+
 </navigation>
