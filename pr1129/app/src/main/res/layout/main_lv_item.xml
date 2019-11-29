@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/foodNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@color/yellow"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:text="Name" />
+
+    <TextView
+        android:id="@+id/foodCalrorieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="36dp"
+        android:background="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/foodNameText"
+        tools:ignore="MissingConstraints"
+        tools:text="Calrorie" />
+
+    <TextView
+        android:id="@+id/foodCarbohydrateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:text="Carbohydrate" />
+
+    <TextView
+        android:id="@+id/foodFatText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/foodProteinText"
+        tools:ignore="MissingConstraints"
+        tools:text="Fat" />
+
+    <TextView
+        android:id="@+id/foodProteinText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/foodCarbohydrateText"
+        tools:ignore="MissingConstraints"
+        tools:text="Protein" />
+
+    <TextView
+        android:id="@+id/foodServing_sieText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/foodCalrorieText"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:text="Serving_sie" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
