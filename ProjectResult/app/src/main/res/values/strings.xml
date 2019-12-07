@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Mobile_Project</string>
+    <string name="title_home">홈</string>
+    <string name="title_schedule">달력</string>
+    <string name="title_account">계정</string>
+    <string name="title_cameara">카메라</string>
+    <string name="title_statistic">통계</string>
+    <string name="title_loginForm">로그인</string>
+    <string name="title_inputData">회원가입</string>
+    <string name="title_app_name">다이어트 카메라</string>
+    <string name="today_food">오늘 내가 먹은 음식</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
