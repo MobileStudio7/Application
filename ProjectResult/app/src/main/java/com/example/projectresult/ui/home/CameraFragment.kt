@@ -3,6 +3,7 @@ package com.example.projectresult.ui.home
 
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.ImageFormat
 import android.graphics.SurfaceTexture
@@ -19,6 +20,10 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.projectresult.R
+import com.example.projectresult.ui.account.LoginFragment
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_camera.*
 import java.io.File
@@ -209,7 +214,6 @@ class CameraFragment : Fragment() {
                 result: TotalCaptureResult
             ) {
                 super.onCaptureCompleted(session, request, result)
-
             }
         }
         cameraDevice.createCaptureSession(outputSurfaces, object : CameraCaptureSession.StateCallback(){
@@ -245,23 +249,7 @@ class CameraFragment : Fragment() {
         }
         override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) = Unit
     }
-    // 권한 받아오기
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CAMERA_PERMISSION) {
-            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                // close the app
-                activity!!.finish()
-            }
-            else{
 
-            }
-        }
-    }
     // 재시작
     override fun onResume() {
         super.onResume()
@@ -282,13 +270,11 @@ class CameraFragment : Fragment() {
     // 카메라 권한 + 카메라 열기
     private fun openCamera() {
         connectCamera()
-
     }
+
     companion object{
         private val TAG = "CameraFragment"
         private val REQUEST_CAMERA_PERMISSION = 100
-        private var imageCount : Int = 0
-        private var datePivot : String? = null
         private val ORIENTATIONS = SparseIntArray()
 
         init {
@@ -298,6 +284,12 @@ class CameraFragment : Fragment() {
             ORIENTATIONS.append(Surface.ROTATION_270, 180)
         }
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.pref = context.getSharedPreferences("ImageData",0) // 0은 MODE_PRIVATE
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -310,20 +302,23 @@ class CameraFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         take_btn.setOnClickListener {
             takePicture()
-            Toast.makeText(context, "취소 혹은 전송 버튼을 터치하세요", Toast.LENGTH_LONG).show()
         }
         upload_btn.setOnClickListener {
             uploadFile()
-            findNavController().navigate(R.id.to_home)
         }
         cancel_btn.setOnClickListener {
             findNavController().navigate(R.id.to_camera)
         }
     }
 
+    //내부 저장 DB
+    private lateinit var pref : SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
+    private var realDB = FirebaseDatabase.getInstance().getReference("Users")
     private fun uploadFile() {
+        val user = pref.getString("current_user", null)
         //업로드할 파일이 있으면 수행)
-        if (uri != null) {
+        if (uri != null && user != null) {
             //업로드 진행 Dialog 보이기
             val progressDialog = ProgressDialog(this.context)
             progressDialog.setTitle("업로드중...")
@@ -331,42 +326,58 @@ class CameraFragment : Fragment() {
 
             //storage
             val storage = FirebaseStorage.getInstance()
-
             //Unique한 파일명을 만들자.
             val formatter = SimpleDateFormat("yyyyMMdd")
             val now = Date()
-            //날짜가 바뀔 때마다 imageCount를 초기화하여 파일명 생성
-            if(datePivot != null){
-                if(datePivot != formatter.format(now)){
-                    datePivot = formatter.format(now)
-                    imageCount = 0
+            editor = pref.edit()
+
+            //날짜가 바뀔 때마다 imageCount 초기화 및 날짜 초기화 하여 파일명 생성
+            //첫 if는 이미 데이터가 저장되어있는경우
+            if(pref.getString("pivotDate","0") != null){
+                // 저장되어있는 날짜와 현재의 날짜가 다르면 날짜가 바뀐 것 -> imageCount 초기화, 기준 날짜 오늘로 저장
+                if(pref.getString("pivotDate","0") != formatter.format(now)){
+                    editor.putString("pivotDate", formatter.format(now))
+                    editor.putInt("imageCount",0)
+                    editor.putInt("documentCount",0)
+                    editor.apply()
                 }
-                else{ }
             }
-            else if(datePivot == null){
-                datePivot = formatter.format(now)
+            // 아무것도 저장이 안되어있는 경우 초기화 진행
+            else {
+                editor.putString("pivotDate", formatter.format(now))
+                editor.putInt("imageCount", 0)
+                editor.putInt("documentCount", 0)
+                editor.apply()
             }
+
+            var imageCount = pref.getInt("imageCount", 0)
             val date = formatter.format(now)
             // 파일명을 날짜에 갯수를 더한 형태로 저장
             val filename = formatter.format(now) + "$imageCount" +".png"
             imageCount += 1
+            editor.putInt("imageCount", imageCount)
+            editor.apply()
             //storage 주소와 폴더 파일명을 지정해 준다.
             val storageRef = storage.getReferenceFromUrl("gs://test-e80f4.appspot.com")
-                .child("/$date/$filename")
+                .child("$user/$date/$filename")
+
             //올리기
             storageRef.putFile(uri)
                 //성공시
                 .addOnSuccessListener {
                     progressDialog.dismiss() //업로드 진행 Dialog 상자 닫기
+
+                    findNavController().navigate(R.id.to_home)
                 }
                 //실패시
                 .addOnFailureListener {
                     progressDialog.dismiss()
+                    Toast.makeText(context,"업로드 실패",Toast.LENGTH_SHORT).show()
                 }
                 //진행중
                 .addOnProgressListener { taskSnapshot ->
                     val progress =
-                        100 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount//이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
+                        100 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount//이걸 넣어 줘야 아랫줄에 에러가 사라진다
                     //dialog에 진행률을 퍼센트로 출력해 준다
                     progressDialog.setMessage("Uploaded " + progress.toInt() + "% ...")
                 }
@@ -374,4 +385,27 @@ class CameraFragment : Fragment() {
             Toast.makeText(context, "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun findRef() : DatabaseReference?{
+        val email = pref.getString("current_user", null)
+        val db = realDB
+        db.orderByChild("email").equalTo(email)
+        return db
+    }
+
+    private fun setUrl(){
+        val editor = pref.edit()
+        val formatter = SimpleDateFormat("yyyyMMdd")
+        val now = Date()
+        var docuCount = pref.getInt("documentCount", 0)
+        val imageCount = pref.getInt("imageCount", 0) - 1
+        val filename = formatter.format(now) + "$imageCount" +".png"
+        var dbref = findRef()?.child("image")?.child(formatter.format(now))?.ref
+        val url = FirebaseStorage.getInstance().reference.child(formatter.format(now)).child(filename).downloadUrl.result
+        dbref?.setValue(url)
+        docuCount += 1
+        editor.putInt("documentCount", docuCount)
+        editor.apply()
+    }
+
 }
