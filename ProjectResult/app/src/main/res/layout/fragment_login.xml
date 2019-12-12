@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loginForm"
     android:layout_width="match_parent"
@@ -16,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="50dp">
+            android:padding="30dp">
 
             <TextView
                 android:id="@+id/textView"
@@ -25,37 +24,37 @@
                 android:gravity="center"
                 android:textSize="40dp"
                 android:text="회원가입"
-                android:layout_marginBottom="60dp"/>
+                android:layout_marginBottom="30dp"/>
 
             <EditText
-                android:id="@+id/user_email"
+                android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:hint="이메일을 입력하세요."/>
 
             <EditText
-                android:id="@+id/user_passwd"
+                android:id="@+id/input_passwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:hint="비밀번호를 입력하세요."/>
 
             <EditText
-                android:id="@+id/get_userName"
+                android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:inputType="textPersonName"
                 android:hint="이름을 입력하세요."/>
 
             <EditText
-                android:id="@+id/user_age"
+                android:id="@+id/user_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:inputType="number"
                 android:hint="나이를 입력하세요."/>
 
@@ -82,20 +81,29 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/user_height"
+                android:id="@+id/input_height"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:inputType="number"
                 android:hint="키를 입력하세요."/>
 
             <EditText
-                android:id="@+id/user_weight"
+                android:id="@+id/input_weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:inputType="number"
                 android:hint="몸무게를 입력하세요."/>
+
+            <EditText
+                android:id="@+id/input_target_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:inputType="number"
+                android:hint="목표 체중을 입력하세요."
+                />
 
             <Button
                 android:id="@+id/adduser_btn"

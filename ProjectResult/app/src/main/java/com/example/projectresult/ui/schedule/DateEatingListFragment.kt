@@ -16,27 +16,12 @@ import com.google.firebase.storage.FirebaseStorage
 class DateEatingListFragment : Fragment(){
     private var dbStorage = FirebaseStorage.getInstance()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_datelist, container, false)
-       /* val recyclerView = root.findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-
-        val date = arguments?.get("date").toString()
-        val ref = dbStorage.getReference(date)
-        val uris = ArrayList<FoodItem>()
-        uris.add(FoodItem(ref.path.toUri()))
-
-        val adapter = CustomAdapter(uris)
-        recyclerView.adapter = adapter*/
         return root
     }
 
