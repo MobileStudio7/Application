@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/foodNameText"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            tools:text="Name"/>
+
+        <TextView
+            android:id="@+id/foodCalrorieText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:textSize="16sp"
+            tools:text="Calrorie"/>
+
+        <TextView
+            android:id="@+id/foodCarbohydrateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:textSize="16sp"
+            tools:text="Carbohydrate"/>
+
+        <TextView
+            android:id="@+id/foodFatText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:textSize="16sp"
+            tools:text="Fat"/>
+
+        <TextView
+            android:id="@+id/foodProteinText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:textSize="16sp"
+            tools:text="Protein"/>
+
+        <TextView
+            android:id="@+id/foodServing_sieText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:textSize="16sp"
+            tools:text="Serving_sie"/>
+    </LinearLayout>
+</LinearLayout>
