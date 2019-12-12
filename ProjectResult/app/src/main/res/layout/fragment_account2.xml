@@ -73,15 +73,6 @@
         android:layout_margin="30dp"/>
 
     <Button
-        android:id="@+id/modify_data_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="정보수정"
-        android:textSize="20dp"
-        android:background="@color/colorAccent"
-        android:layout_margin="30dp"/>
-
-    <Button
         android:id="@+id/log_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -55,7 +55,7 @@ class AccountFragment2 : Fragment() {
             if(email != null && passwd != null){
                 dbAuth.signInWithEmailAndPassword(email,passwd).addOnCompleteListener(activity!!) { task ->
                  if(task.isSuccessful){
-                     user = FirebaseAuth.getInstance().currentUser!!.email!!.toString()
+                     user = FirebaseAuth.getInstance().currentUser!!.email!!
                      editor.putString("current_user", user)
                      editor.apply()
                      findNavController().navigate(R.id.to_navAccount)

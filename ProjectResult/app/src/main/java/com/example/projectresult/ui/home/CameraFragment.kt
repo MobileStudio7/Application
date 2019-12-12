@@ -359,14 +359,14 @@ class CameraFragment : Fragment() {
             editor.apply()
             //storage 주소와 폴더 파일명을 지정해 준다.
             val storageRef = storage.getReferenceFromUrl("gs://test-e80f4.appspot.com")
-                .child("$user/$date/$filename")
+                .child("/$date/$user/$filename")
 
             //올리기
             storageRef.putFile(uri)
                 //성공시
                 .addOnSuccessListener {
                     progressDialog.dismiss() //업로드 진행 Dialog 상자 닫기
-
+                    setUrl()
                     findNavController().navigate(R.id.to_home)
                 }
                 //실패시
@@ -381,6 +381,7 @@ class CameraFragment : Fragment() {
                     //dialog에 진행률을 퍼센트로 출력해 준다
                     progressDialog.setMessage("Uploaded " + progress.toInt() + "% ...")
                 }
+
         } else {
             Toast.makeText(context, "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show()
         }
@@ -389,7 +390,7 @@ class CameraFragment : Fragment() {
     private fun findRef() : DatabaseReference?{
         val email = pref.getString("current_user", null)
         val db = realDB
-        db.orderByChild("email").equalTo(email)
+        db.orderByChild("email").equalTo("$email").ref.parent
         return db
     }
 
